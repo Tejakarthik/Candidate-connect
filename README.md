@@ -3,7 +3,8 @@
 CandidateConnect is a modern, real-time web application designed to streamline the candidate tracking and evaluation process for recruiting teams. Built with Next.js and Firebase, it provides a collaborative environment where users can manage candidate pipelines, share notes with `@mentions`, and receive instant notifications, all within a clean, responsive, and secure interface.
 
 **[LIVE DEMO URL]** - https://candidate-connect-git-main-tejakarthiks-projects.vercel.app/login
-**[VIDEO WALKTHROUGH]** - *Replace with your Loom link*
+**[VIDEO WALKTHROUGH]** - https://drive.google.com/file/d/1ErHMQkDQt8uoUK0f6HMPghq8xKnLsvcu/view?usp=sharing
+
 
 ---
 
