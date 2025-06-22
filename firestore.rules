@@ -19,21 +19,16 @@ service cloud.firestore {
     
     // CANDIDATES collection
     match /candidates/{candidateId} {
-      // Allow create for any authenticated user.
-      allow create: if request.auth != null;
-      
-      // Allow read and update only if the user's UID is in the `assignedUsers` array.
-      allow read, update: if request.auth.uid in resource.data.assignedUsers;
-      
-      // Allow delete only if the user is the original creator.
-      allow delete: if request.auth.uid == resource.data.createdBy;
+      // Any authenticated user can create a new candidate or read the list of candidates.
+      allow create, read: if request.auth != null;
+
+      // The user who created the candidate can update it (e.g., assign more users) or delete it.
+      // Note: This is more restrictive than before, where any assigned user could update.
+      allow update, delete: if request.auth.uid == resource.data.createdBy;
 
       // Sub-collections (notes, history)
-      // Inherit the access rules from the parent candidate document.
-      function hasCandidateAccess() {
-        return get(/databases/$(database)/documents/candidates/$(candidateId)).data.assignedUsers.hasAny([request.auth.uid]);
-      }
-
+      // These have their own, more restrictive rules to protect sensitive data.
+      
       // NOTES sub-collection
       match /notes/{noteId} {
         allow read, create: if hasCandidateAccess();
