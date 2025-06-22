@@ -26,6 +26,13 @@ service cloud.firestore {
       // Note: This is more restrictive than before, where any assigned user could update.
       allow update, delete: if request.auth.uid == resource.data.createdBy;
 
+      // This function checks if the requesting user is in the candidate's `assignedUsers` list.
+      // It's used to secure the sub-collections below.
+      function hasCandidateAccess() {
+        // The `get()` call reads the parent candidate document to check the assignedUsers array.
+        return request.auth.uid in get(/databases/$(database)/documents/candidates/$(candidateId)).data.assignedUsers;
+      }
+
       // Sub-collections (notes, history)
       // These have their own, more restrictive rules to protect sensitive data.
       
