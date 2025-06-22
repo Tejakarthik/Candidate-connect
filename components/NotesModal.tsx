@@ -8,6 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
+  DialogDescription,
 } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { useAuth } from '@/context/AuthContext';
@@ -295,6 +296,9 @@ export default function NotesModal({
       <DialogContent className="sm:max-w-[600px] h-full sm:h-[70vh] flex flex-col">
         <DialogHeader>
           <DialogTitle>Notes for {candidateDoc?.name}</DialogTitle>
+          <DialogDescription>
+            View notes, add comments, and see the full history for this candidate.
+          </DialogDescription>
         </DialogHeader>
         {/* Add users to access list */}
         <div className="mb-2">

@@ -17,6 +17,7 @@ import {
   DialogTrigger,
   DialogFooter,
   DialogClose,
+  DialogDescription,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -104,8 +105,9 @@ export default function HomePage() {
   const [selectedUserUids, setSelectedUserUids] = useState<string[]>([]);
 
   const fetchCandidates = async () => {
+    if (!currentUser) return;
     try {
-      const candidatesData = await getCandidates();
+      const candidatesData = await getCandidates(currentUser.uid);
       setCandidates(candidatesData);
     } catch (error) {
       toast('Error', {
@@ -368,6 +370,9 @@ export default function HomePage() {
                     <DialogContent className="sm:max-w-[625px]">
                       <DialogHeader>
                         <DialogTitle>Add a New Candidate</DialogTitle>
+                        <DialogDescription>
+                          Fill in the details below to add a new candidate to your pipeline.
+                        </DialogDescription>
                       </DialogHeader>
                       <div className="grid gap-4 py-4">
                         <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-4">

@@ -82,6 +82,7 @@ export default function AuthForm({ type }: AuthFormProps) {
                   value={formData.name}
                   onChange={handleChange}
                   required
+                  autoComplete="name"
                 />
               </div>
             )}
@@ -95,6 +96,7 @@ export default function AuthForm({ type }: AuthFormProps) {
                 value={formData.email}
                 onChange={handleChange}
                 required
+                autoComplete="email"
               />
             </div>
             <div className="space-y-2">
@@ -109,6 +111,7 @@ export default function AuthForm({ type }: AuthFormProps) {
                   onChange={handleChange}
                   required
                   className="pr-10"
+                  autoComplete={type === 'login' ? 'current-password' : 'new-password'}
                 />
                 <Button
                   type="button"
@@ -139,6 +142,7 @@ export default function AuthForm({ type }: AuthFormProps) {
                     onChange={handleChange}
                     required
                     className="pr-10"
+                    autoComplete="new-password"
                   />
                   <Button
                     type="button"

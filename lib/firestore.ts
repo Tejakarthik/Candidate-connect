@@ -14,6 +14,7 @@ import {
   getDoc,
   QueryDocumentSnapshot,
   DocumentData,
+  where,
 } from 'firebase/firestore';
 import { db } from './firebase';
 import { AppUser } from './users';
@@ -78,9 +79,11 @@ export const addCandidate = async (candidateData: NewCandidate) => {
   }
 };
 
-export const getCandidates = async (): Promise<Candidate[]> => {
+export const getCandidates = async (userId: string): Promise<Candidate[]> => {
   try {
-    const querySnapshot = await getDocs(collection(db, 'candidates'));
+    const candidatesRef = collection(db, 'candidates');
+    const q = query(candidatesRef, where('assignedUsers', 'array-contains', userId));
+    const querySnapshot = await getDocs(q);
     const candidates = querySnapshot.docs.map(
       (doc) =>
         ({
