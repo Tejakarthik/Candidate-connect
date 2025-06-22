@@ -79,10 +79,10 @@ export const addCandidate = async (candidateData: NewCandidate) => {
   }
 };
 
-export const getCandidates = async (userId: string): Promise<Candidate[]> => {
+export const getCandidates = async (): Promise<Candidate[]> => {
   try {
     const candidatesRef = collection(db, 'candidates');
-    const q = query(candidatesRef, where('assignedUsers', 'array-contains', userId));
+    const q = query(candidatesRef, orderBy('createdAt', 'desc'));
     const querySnapshot = await getDocs(q);
     const candidates = querySnapshot.docs.map(
       (doc) =>

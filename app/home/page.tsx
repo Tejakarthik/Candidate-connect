@@ -105,9 +105,8 @@ export default function HomePage() {
   const [selectedUserUids, setSelectedUserUids] = useState<string[]>([]);
 
   const fetchCandidates = async () => {
-    if (!currentUser) return;
     try {
-      const candidatesData = await getCandidates(currentUser.uid);
+      const candidatesData = await getCandidates();
       setCandidates(candidatesData);
     } catch (error) {
       toast('Error', {
@@ -255,6 +254,19 @@ export default function HomePage() {
   };
 
   const handleCandidateClick = (candidate: Candidate) => {
+    if (!currentUser) return;
+    
+    if (!candidate.assignedUsers.includes(currentUser.uid)) {
+      toast('Access Denied', {
+        description: 'You are not assigned to this candidate and cannot view their details.',
+        action: {
+          label: 'Close',
+          onClick: () => {},
+        },
+      });
+      return;
+    }
+    
     setSelectedCandidate(candidate);
   };
 
